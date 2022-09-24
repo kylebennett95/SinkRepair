@@ -11,3 +11,9 @@ const render = async () => {
 
 render()
 
+mainContainer.addEventListener(
+    "stateChanged",
+    customEvent => {
+        render()
+    }
+)

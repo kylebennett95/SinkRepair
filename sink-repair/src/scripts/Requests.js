@@ -5,9 +5,9 @@ export const Requests = () => {
 
     let html = "<ul>"
 
-        const listItems = requests.map(style => {
+        const listItems = requests.map(requests => {
             return `<li>
-            ${requests.id}" "${requests.description}
+            ${requests.id}. ${requests.description}
             </li>`
         })
 

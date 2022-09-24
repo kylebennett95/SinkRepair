@@ -1,8 +1,8 @@
+const API = "http://localhost:8088"
+
 const applicationState = {
     requests: [],
 }
-
-const API = "http://localhost:8088"
 
 export const fetchRequests = async () => {
   const dataFetch = await fetch(`${API}/requests`)
@@ -13,4 +13,25 @@ export const fetchRequests = async () => {
 
 export const getRequests = () => {
     return applicationState.requests.map((a) => ({ ...a }))
+}
+
+export const sendRequest = async (userServiceRequest) => {
+  const fetchOptions = {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userServiceRequest)
+  }
+
+  const mainContainer = document.querySelector("#container")
+  const response = await fetch(`${API}/requests`, fetchOptions)
+  const responseJson = await response.json()
+  mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+  return responseJson
+}
+
+export const deleteRequest = async (id) => {
+  await fetch(`${API}/requests/${id}`, { method: "DELETE" })
+  mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
 }
