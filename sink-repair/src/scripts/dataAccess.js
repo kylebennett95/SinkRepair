@@ -33,5 +33,12 @@ export const sendRequest = async (userServiceRequest) => {
 
 export const deleteRequest = async (id) => {
   await fetch(`${API}/requests/${id}`, { method: "DELETE" })
+  const mainContainer = document.querySelector("#container")
   mainContainer.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
+export const fetchPlumbers = async () => {
+  const dataFetch = await fetch(`${API}/plumbers`)
+  const plumbers = await dataFetch.json()
+  applicationState.plumbers = plumbers
 }
